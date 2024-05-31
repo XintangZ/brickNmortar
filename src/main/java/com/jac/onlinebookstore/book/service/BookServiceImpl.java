@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class BookServiceImpl implements BookService {
 
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     @Autowired
     public BookServiceImpl(BookRepository theBookRepository) {
@@ -27,32 +27,24 @@ public class BookServiceImpl implements BookService {
     public Book findByIsbn(String isbn) {
         Optional<Book> result = bookRepository.findByIsbn(isbn);
 
-        Book theBook = null;
-
         if (result.isPresent()) {
-            theBook = result.get();
+            return result.get();
         }
         else {
             throw new RuntimeException("Could not find book with ISBN \"" + isbn + "\"");
         }
-
-        return theBook;
     }
 
     @Override
     public Book findById(int id) {
         Optional<Book> result = bookRepository.findById(id);
 
-        Book theBook = null;
-
         if (result.isPresent()) {
-            theBook = result.get();
+            return result.get();
         }
         else {
             throw new RuntimeException("Could not find book id - " + id);
         }
-
-        return theBook;
     }
 
     @Override

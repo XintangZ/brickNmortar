@@ -13,7 +13,7 @@ import java.util.Map;
 @RequestMapping("/books")
 public class BookController {
 
-    private BookService bookService;
+    private final BookService bookService;
 
     public BookController(BookService theBookService) {
         bookService = theBookService;
