@@ -1,27 +1,13 @@
 package com.jac.onlinebookstore.book.controller;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.jac.onlinebookstore.book.service.BookService;
 import com.jac.onlinebookstore.book.entity.Book;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.GrantedAuthority;
 
-
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/books")
@@ -48,10 +34,8 @@ public class BookController {
 
     @GetMapping("/search")
     public String searchByIsbn(@RequestParam String isbn, Model model) {
-        Book theBook = null;
-
         try {
-            theBook = bookService.findByIsbn(isbn);
+            Book theBook = bookService.findByIsbn(isbn);
             model.addAttribute("books", theBook);
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
@@ -68,10 +52,8 @@ public class BookController {
 
     @GetMapping("/add")
     public String showFormForAdd(@RequestParam String isbn, Model model) {
-        Book theBook = null;
-
         try {
-            theBook = bookService.findByIsbn(isbn);
+            Book theBook = bookService.findByIsbn(isbn);
             if (theBook != null) {
                 return "redirect:/books/edit?bookId=" + theBook.getId();
             }
