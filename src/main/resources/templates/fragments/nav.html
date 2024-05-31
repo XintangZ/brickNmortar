@@ -7,7 +7,7 @@
                 <img th:src="@{/img/logo.png}" alt="bookstore logo" style="width: 100px" class="me-5">
             </a>
             <form class="d-flex d-md-none flex-column align-items-end flex-grow-1 pe-4" th:action="@{/logout}" method="post">
-                <small class="text-nowrap">Hello, <span sec:authentication="principal.username"/></small>
+                <small class="text-nowrap">Hello, <span sec:authentication="principal.username"></span></small>
                 <a href="#" role="button" onclick="this.closest('form').submit()" class="text-danger"><small>Logout</small></a>
             </form>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,7 @@
                     <div th:replace="~{fragments/search-form :: search}">&nbsp;</div>
                 </div>
                 <form class="d-none d-md-flex flex-column align-items-end" th:action="@{/logout}" method="post">
-                    <small class="text-nowrap">Hello, <span sec:authentication="principal.username"/></small>
+                    <small class="text-nowrap">Hello, <span sec:authentication="principal.username"></span></small>
                     <a href="#" role="button" onclick="this.closest('form').submit()" class="text-danger"><small>Logout</small></a>
                 </form>
             </div>
