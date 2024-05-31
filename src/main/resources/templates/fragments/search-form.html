@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <body>
 
-    <div th:fragment="search">
+    <div th:fragment="search" class="w-100 d-inline">
         <form id="isbnSearchForm" class="d-flex gap-2" role="search">
             <input id="inputIsbn" class="form-control form-control-sm" type="search" name="isbn" placeholder="Search by ISBN" aria-label="Search" th:value="${isbn}">
 

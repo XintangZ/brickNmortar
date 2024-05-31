@@ -22,17 +22,8 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String showHome(HttpServletRequest request, Model model) {
-        List<Book> allBooks = bookService.findAll();
-
-        model.addAllAttributes(Map.of(
-                "books", allBooks,
-                "title", "Home",
-                "view", "home",
-                "currentUri", request.getRequestURI()
-        ));
-
-        return "index";
+    public String showHome() {
+        return "redirect:/books/list";
     }
 
     @GetMapping("/login")

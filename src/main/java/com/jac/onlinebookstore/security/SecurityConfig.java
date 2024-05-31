@@ -23,6 +23,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(configurer ->
                 configurer
                         .requestMatchers("/img/**").permitAll()
+                        .requestMatchers("/books/list", "/books/search").authenticated()
                         .requestMatchers("/books/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/authenticateUser").permitAll())

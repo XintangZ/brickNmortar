@@ -4,33 +4,61 @@
 
 <div th:fragment="content">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3>Book Directory</h3>
+    <h3 class="mb-4">Book Directory</h3>
 
-        <div th:replace="~{fragments/search-form :: search}">&nbsp;</div>
-        <input type="hidden" id="uri" value="/">
+    <div sec:authorize="hasRole('ROLE_USER')">
+        <div class="alert alert-light" role="alert" th:if="${error}" th:text="${error}"></div>
+
+        <div class="row g-5">
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex align-items-stretch" th:each="book : ${books}">
+                <div class="card">
+                    <img th:src="'https://covers.openlibrary.org/b/isbn/' + ${book.isbn} + '-L.jpg'" th:alt="'cover of' + ${book.title}"
+                         class="card-img-top object-fit-scale pt-4 pb-2" style="height: 200px">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-primary" th:text="${book.title}" />
+                        <p class="card-text text-secondary" th:text="${book.author}" />
+                        <p class="card-text flex-grow-1" th:text="${book.description}" />
+                        <p class="card-text text-secondary"><small th:text="'ISBN: ' + ${book.isbn}" /></p>
+
+                        <button class="btn btn-outline-primary btn-sm"
+                                onclick="alert('Thank you. We will process your request shortly.')">
+                            Request
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="alert alert-light" role="alert" th:if="${error}" th:text="${error}"></div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <table class="table table-bordered table-striped align-middle">
+            <thead class="table-secondary">
+            <tr>
+                <th>Cover</th>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+            </thead>
 
-    <div class="row g-5">
-        <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex align-items-stretch" th:each="book : ${books}">
-            <div class="card">
-                <img th:src="'https://covers.openlibrary.org/b/isbn/' + ${book.isbn} + '-L.jpg'" th:alt="'cover of' + ${book.title}"
-                     class="card-img-top object-fit-scale pt-4 pb-2" style="height: 200px">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title text-primary" th:text="${book.title}" />
-                    <p class="card-text text-secondary" th:text="${book.author}" />
-                    <p class="card-text flex-grow-1" th:text="${book.description}" />
-                    <p class="card-text text-secondary"><small th:text="'ISBN: ' + ${book.isbn}" /></p>
+            <tbody>
+            <tr th:if="${error}" >
+                <td colspan="6" class="alert alert-light text-center text-secondary" role="alert" th:text="${error}"></td>
+            </tr>
+            <tr th:each="book : ${books}">
+                <td class="text-center position-relative">
+                    <img th:src="'https://covers.openlibrary.org/b/isbn/' + ${book.isbn} + '-L.jpg'" th:alt="'cover of' + ${book.title}" class="px-3" style="height: 100px">
+                </td>
 
-                    <button class="btn btn-outline-primary btn-sm"
-                            onclick="alert('Thank you. We will process your request shortly.')"
-                            sec:authorize="hasRole('ROLE_USER')">
-                        Request
-                    </button>
+                <td th:text="${book.isbn}" />
+                <td th:text="${book.title}" />
+                <td th:text="${book.author}" />
+                <td th:text="${book.description}" />
 
-                    <div class="d-flex gap-2" sec:authorize="hasRole('ROLE_ADMIN')">
+                <td>
+                    <div class="d-flex flex-column gap-2 px-3">
                         <a th:href="@{/books/edit(bookId=${book.id})}"
                            class="btn btn-outline-primary btn-sm w-100">
                             Edit
@@ -42,10 +70,12 @@
                             Delete
                         </a>
                     </div>
-                </div>
-            </div>
-        </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+
 
 </div>
 

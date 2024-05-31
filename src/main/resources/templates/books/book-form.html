@@ -7,29 +7,42 @@
     <h3 th:text="${action} + ' Book'"></h3>
     <hr>
 
-    <form th:action="@{/books/save}" th:object="${book}" method="POST">
+    <div class="row g-5">
+        <div class="col-md-4 d-flex justify-content-center align-items-center py-4">
+            <img th:src="'https://covers.openlibrary.org/b/isbn/' + ${book.isbn} + '-L.jpg'" th:alt="'cover of' + ${book.title}" style="height: 300px">
+        </div>
+        <div class="col-md-8">
+            <form class="row g-4" th:action="@{/books/save}" th:object="${book}" method="post">
+                <input type="hidden" th:field="*{id}" />
 
-        <input type="hidden" th:field="*{id}" />
-
-        <input type="text" th:field="*{isbn}"
-               class="form-control mb-4 w-25" placeholder="Isbn">
-
-        <input type="text" th:field="*{title}"
-               class="form-control mb-4 w-25" placeholder="Title">
-
-        <input type="text" th:field="*{author}"
-               class="form-control mb-4 w-25" placeholder="Author">
-
-        <textarea th:field="*{description}"
-                  class="form-control mb-4 w-25" placeholder="Description"></textarea>
-
-        <button type="submit" class="btn btn-primary col-2">Save</button>
-
-    </form>
-
-    <hr>
-    <a th:href="@{/books/list}">Back to Books List</a>
-
+                <div class="col-12">
+                    <label for="inputTitle" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="inputTitle" placeholder="Title" th:field="*{title}">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputAuthor" class="form-label">Author</label>
+                    <input type="text" class="form-control" id="inputAuthor" placeholder="Author" th:field="*{author}">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputIsbn" class="form-label">ISBN</label>
+                    <input type="text" class="form-control" id="inputIsbn" placeholder="ISBN" th:field="*{isbn}">
+                </div>
+                <div class="col-12">
+                    <label for="textareaDescription" class="form-label">Description</label>
+                    <textarea class="form-control" id="textareaDescription" placeholder="Description" th:field="*{description}" required></textarea>
+                    <div class="invalid-feedback">
+                        Please enter a message in the textarea.
+                    </div>
+                </div>
+                <div class="col-6">
+                    <a th:href="@{/books/list}" class="btn btn-secondary w-100 mt-3">Cancel</a>
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 </body>

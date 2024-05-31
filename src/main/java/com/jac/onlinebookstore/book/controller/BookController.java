@@ -34,43 +34,33 @@ public class BookController {
     }
 
     @GetMapping("/list")
-    public String listBooks(HttpServletRequest request, Model model) {
+    public String listBooks(Model model) {
         List<Book> allBooks = bookService.findAll();
 
         model.addAllAttributes(Map.of(
                 "books", allBooks,
-                "title", "Book Directory",
-                "view", "books/list-books",
-                "currentUri", request.getRequestURI()
+                "title", "Home",
+                "view", "home"
         ));
 
         return "index";
     }
 
     @GetMapping("/search")
-    public String searchByIsbn(@RequestParam String isbn, Model model, HttpServletRequest request) {
+    public String searchByIsbn(@RequestParam String isbn, Model model) {
         Book theBook = null;
-        String refererUrl = request.getHeader("Referer");
-        String refererUri = null;
 
         try {
-            if (refererUrl != null) {
-                URI uri = new URI(refererUrl);
-                refererUri = uri.getPath();
-            }
-
             theBook = bookService.findByIsbn(isbn);
             model.addAttribute("books", theBook);
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
         }
 
-        String view = Objects.equals(refererUri, "/") ? "home" : "books/list-books";
-
         model.addAllAttributes(Map.of(
                 "title", "Search Result",
                 "isbn", isbn,
-                "view", view
+                "view", "home"
         ));
 
         return "index";
