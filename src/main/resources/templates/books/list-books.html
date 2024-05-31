@@ -7,19 +7,22 @@
 
 <div th:fragment="content">
 
-    <h3>Manage Book Inventory</h3>
-    <hr>
+    <h3>Manage Book Directory</h3>
 
-    <a th:href="@{/books/add}"
-       class="btn btn-primary btn-sm mb-3">
-        Add Book
-    </a>
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <a th:href="@{/books/add}"
+           class="btn btn-primary btn-sm">
+            Add Book
+        </a>
+
+        <div th:replace="~{fragments/search-form :: search}">&nbsp;</div>
+    </div>
 
     <table class="table table-bordered table-striped align-middle">
         <thead class="table-primary">
         <tr>
             <th>Cover</th>
-            <th>Isbn</th>
+            <th>ISBN</th>
             <th>Title</th>
             <th>Author</th>
             <th>Description</th>

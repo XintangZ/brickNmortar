@@ -15,11 +15,14 @@
                         <a class="nav-link" th:classappend="${currentUrl == '/' ? 'active' : ''}" th:href="@{/}">Home</a>
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link" th:classappend="${currentUrl == '/books/list' ? 'active' : ''}" th:href="@{/books/list}">Inventory</a>
+                        <a class="nav-link" th:classappend="${currentUrl == '/books/list' ? 'active' : ''}" th:href="@{/books/list}">Admin</a>
                     </li>
                 </ul>
                 <div>
-                    <form class="d-inline" th:action="@{/logout}" method="post"><button type="submit" class="btn btn-sm btn-outline-primary">Logout</button></form>
+                    <form class="d-flex flex-column align-items-end" th:action="@{/logout}" method="post">
+                        <small>Hello, <span sec:authentication="principal.username"/></small>
+                        <a href="#" role="button" onclick="this.closest('form').submit()" class="text-danger"><small>Logout</small></a>
+                    </form>
                 </div>
             </div>
         </div>

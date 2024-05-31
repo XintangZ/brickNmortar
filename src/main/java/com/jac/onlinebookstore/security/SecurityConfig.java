@@ -1,4 +1,4 @@
-package com.jac.onlinebookstore;
+package com.jac.onlinebookstore.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

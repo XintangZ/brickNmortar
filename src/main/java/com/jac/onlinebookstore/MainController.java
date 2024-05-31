@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MainController {
@@ -23,11 +24,13 @@ public class MainController {
     @GetMapping("/")
     public String showHome(HttpServletRequest request, Model model) {
         List<Book> allBooks = bookService.findAll();
-        model.addAttribute("books", allBooks);
 
-        model.addAttribute("title", "Home");
-        model.addAttribute("view", "home");
-        model.addAttribute("currentUrl", request.getRequestURI());
+        model.addAllAttributes(Map.of(
+                "books", allBooks,
+                "title", "Home",
+                "view", "home",
+                "currentUrl", request.getRequestURI()
+        ));
 
         return "index";
     }
@@ -40,13 +43,19 @@ public class MainController {
 
     @GetMapping("/access-denied")
     public String showAccessDeniedPage(Model model) {
-        model.addAttribute("view", "error/403");
+        model.addAllAttributes(Map.of(
+                "title", "Access Denied",
+                "view", "error/403"
+        ));
         return "index";
     }
 
     @GetMapping("*")
     public String showNotFoundPage(Model model) {
-        model.addAttribute("view", "error/404");
+        model.addAllAttributes(Map.of(
+                "title", "Page Not Found",
+                "view", "error/404"
+        ));
         return "index";
     }
 }

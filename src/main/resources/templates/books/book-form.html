@@ -1,24 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-
-    <title>Save Book</title>
-</head>
 <body>
 
-<div class="container">
+<div class="container" th:fragment="content">
 
-    <h3>Book Directory</h3>
+    <h3 th:text="${action} + ' Book'"></h3>
     <hr>
 
-    <p class="h4 mb-4">Save Book</p>
+    <form th:action="@{/books/save}" th:object="${book}" method="POST">
 
-    <form action="#" th:action="@{/books/save}"
-          th:object="${book}" method="POST">
-
-        <!-- Add hidden form field to handle update -->
         <input type="hidden" th:field="*{id}" />
 
         <input type="text" th:field="*{isbn}"
@@ -33,7 +23,7 @@
         <textarea th:field="*{description}"
                   class="form-control mb-4 w-25" placeholder="Description"></textarea>
 
-        <button type="submit" class="btn btn-info col-2">Save</button>
+        <button type="submit" class="btn btn-primary col-2">Save</button>
 
     </form>
 

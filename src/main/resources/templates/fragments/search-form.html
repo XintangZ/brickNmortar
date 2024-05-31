@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+    <div th:fragment="search">
+        <form class="d-flex" role="search" th:action="@{/books/search}" method="post" style="width: 300px">
+            <input id="inputIsbn" class="form-control form-control-sm me-2" type="search" name="isbn" placeholder="Search by ISBN" aria-label="Search" th:value="${isbn}">
+            <button class="btn btn-sm btn-outline-primary" type="submit">Search</button>
+        </form>
+        <script th:src="@{/js/script.js}"></script>
+    </div>
+
+</body>
+</html>
