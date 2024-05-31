@@ -1,11 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <body>
 
     <div th:fragment="search">
-        <form class="d-flex" role="search" th:action="@{/books/search}" method="post" style="width: 300px">
-            <input id="inputIsbn" class="form-control form-control-sm me-2" type="search" name="isbn" placeholder="Search by ISBN" aria-label="Search" th:value="${isbn}">
-            <button class="btn btn-sm btn-outline-primary" type="submit">Search</button>
+        <form id="isbnSearchForm" class="d-flex gap-2" role="search">
+            <input id="inputIsbn" class="form-control form-control-sm" type="search" name="isbn" placeholder="Search by ISBN" aria-label="Search" th:value="${isbn}">
+
+            <button type="submit"
+                    class="btn btn-sm btn-outline-primary"
+                    formaction="/books/search">
+                Search
+            </button>
+
+            <button type="submit"
+                    formaction="/books/add"
+                    class="btn btn-sm btn-success text-nowrap"
+                    sec:authorize="hasRole('ROLE_ADMIN')">
+                Add Book
+            </button>
         </form>
         <script th:src="@{/js/script.js}"></script>
     </div>

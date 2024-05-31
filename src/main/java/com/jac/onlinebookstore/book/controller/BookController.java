@@ -47,7 +47,7 @@ public class BookController {
         return "index";
     }
 
-    @PostMapping("/search")
+    @GetMapping("/search")
     public String searchByIsbn(@RequestParam String isbn, Model model, HttpServletRequest request) {
         Book theBook = null;
         String refererUrl = request.getHeader("Referer");
