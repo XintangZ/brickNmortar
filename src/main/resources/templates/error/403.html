@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Access Denied</title>
+</head>
+<body>
+
+<div th:fragment="content">
+    <div class="alert alert-secondary" role="alert">
+        Access Denied - You are not authorized to view this page.
+    </div>
+    <a th:href="@{/}" class="btn btn-sm btn-outline-primary">Back to Home Page</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home - Online Bookstore Management System</title>
+</head>
+<body>
+
+<div th:fragment="content">
+
+    <h3>Book Directory</h3>
+    <br>
+
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex align-items-stretch" th:each="book : ${books}">
+                <div class="card">
+                    <img th:src="'https://covers.openlibrary.org/b/isbn/' + ${book.isbn} + '-L.jpg'" th:alt="'cover of' + ${book.title}"
+                         class="card-img-top object-fit-scale pt-4 pb-2" style="height: 200px">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-primary" th:text="${book.title}" />
+                        <p class="card-text text-secondary" th:text="${book.author}" />
+                        <p class="card-text flex-grow-1" th:text="${book.description}" />
+                        <p class="card-text text-secondary"><small th:text="'ISBN: ' + ${book.isbn}" /></p>
+
+                        <a th:href="@{/books/edit(bookId=${book.id})}"
+                           class="btn btn-outline-primary btn-sm">
+                            Request
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
