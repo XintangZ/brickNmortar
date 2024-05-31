@@ -9,7 +9,7 @@
 
     <div class="row g-5">
         <div class="col-md-4 d-flex justify-content-center align-items-center py-4">
-            <img th:src="'https://covers.openlibrary.org/b/isbn/' + ${book.isbn} + '-L.jpg'" th:alt="'cover of' + ${book.title}" style="height: 300px">
+            <img th:src="${cover}" th:alt="'cover of ' + ${book.title}" style="height: 300px">
         </div>
         <div class="col-md-8">
             <form class="row g-4" th:action="@{/books/save}" th:object="${book}" method="post">

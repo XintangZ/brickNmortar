@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const oldValue = inputField.value;
 
     form.addEventListener('submit', (e)=>{
-        if (e.submitter.innerText === "Search" && inputField.value === '') {
+        if (inputField.value === '') {
+            alert("Please enter ISBN");
             e.preventDefault();
         }
     })

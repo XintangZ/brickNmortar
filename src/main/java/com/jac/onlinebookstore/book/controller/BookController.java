@@ -67,12 +67,24 @@ public class BookController {
     }
 
     @GetMapping("/add")
-    public String showFormForAdd(Model model) {
+    public String showFormForAdd(@RequestParam String isbn, Model model) {
+        Book theBook = null;
+
+        try {
+            theBook = bookService.findByIsbn(isbn);
+            if (theBook != null) {
+                return "redirect:/books/edit?bookId=" + theBook.getId();
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
+
         Book newBook = new Book();
 
         model.addAllAttributes(Map.of(
                 "title", "Add Book",
                 "book", newBook,
+                "cover", getCoverUrl(isbn),
                 "view", "books/book-form",
                 "action", "Add"
         ));
@@ -87,6 +99,7 @@ public class BookController {
         model.addAllAttributes(Map.of(
                 "title", "Edit Book",
                 "book", theBook,
+                "cover", getCoverUrl(theBook.getIsbn()),
                 "view", "books/book-form",
                 "action", "Edit"
         ));
@@ -104,5 +117,9 @@ public class BookController {
     public String delete(@RequestParam("bookId") int id) {
         bookService.deleteById(id);
         return "redirect:/books/list";
+    }
+
+    private String getCoverUrl(String isbn) {
+        return "https://covers.openlibrary.org/b/isbn/" + isbn + "-L.jpg";
     }
 }

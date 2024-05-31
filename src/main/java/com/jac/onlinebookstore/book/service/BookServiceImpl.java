@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BookServiceImpl implements com.jac.onlinebookstore.book.service.BookService {
+public class BookServiceImpl implements BookService {
 
     private BookRepository bookRepository;
 
@@ -33,7 +33,7 @@ public class BookServiceImpl implements com.jac.onlinebookstore.book.service.Boo
             theBook = result.get();
         }
         else {
-            throw new RuntimeException("Could not find book isbn - " + isbn);
+            throw new RuntimeException("Could not find book with ISBN \"" + isbn + "\"");
         }
 
         return theBook;
