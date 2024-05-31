@@ -8,6 +8,7 @@
         <h3>Book Directory</h3>
 
         <div th:replace="~{fragments/search-form :: search}">&nbsp;</div>
+        <input type="hidden" id="uri" value="/">
     </div>
 
     <div class="alert alert-light" role="alert" th:if="${error}" th:text="${error}"></div>

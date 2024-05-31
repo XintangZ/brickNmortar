@@ -29,7 +29,7 @@ public class MainController {
                 "books", allBooks,
                 "title", "Home",
                 "view", "home",
-                "currentUrl", request.getRequestURI()
+                "currentUri", request.getRequestURI()
         ));
 
         return "index";
@@ -50,12 +50,17 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("*")
+    @GetMapping("/page-not-found")
     public String showNotFoundPage(Model model) {
         model.addAllAttributes(Map.of(
                 "title", "Page Not Found",
                 "view", "error/404"
         ));
         return "index";
+    }
+
+    @GetMapping("*")
+    public String redirectToNotFoundPage() {
+        return "redirect:/page-not-found";
     }
 }

@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     inputField.addEventListener('input', () => {
         const newValue = inputField.value;
         if (newValue === '' && newValue !== oldValue) {
-            window.location.href = '/';
+            window.location.href = document.querySelector('#uri').value;
         }
     });
 });

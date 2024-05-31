@@ -16,10 +16,11 @@
         </a>
 
         <div th:replace="~{fragments/search-form :: search}">&nbsp;</div>
+        <input type="hidden" id="uri" value="/books/list">
     </div>
 
     <table class="table table-bordered table-striped align-middle">
-        <thead class="table-primary">
+        <thead class="table-secondary">
         <tr>
             <th>Cover</th>
             <th>ISBN</th>
@@ -31,6 +32,9 @@
         </thead>
 
         <tbody>
+        <tr th:if="${error}" >
+            <td colspan="6" class="alert alert-light text-center text-secondary" role="alert" th:text="${error}"></td>
+        </tr>
         <tr th:each="book : ${books}">
             <td class="text-center position-relative">
                 <img th:src="'https://covers.openlibrary.org/b/isbn/' + ${book.isbn} + '-L.jpg'" th:alt="'cover of' + ${book.title}" class="px-3" style="height: 100px">

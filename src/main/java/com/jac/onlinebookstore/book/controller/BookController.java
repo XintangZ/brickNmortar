@@ -12,9 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.GrantedAuthority;
 
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/books")
@@ -34,26 +41,36 @@ public class BookController {
                 "books", allBooks,
                 "title", "Book Directory",
                 "view", "books/list-books",
-                "currentUrl", request.getRequestURI()
+                "currentUri", request.getRequestURI()
         ));
 
         return "index";
     }
 
     @PostMapping("/search")
-    public String searchByIsbn(@RequestParam String isbn, Model model) {
+    public String searchByIsbn(@RequestParam String isbn, Model model, HttpServletRequest request) {
         Book theBook = null;
+        String refererUrl = request.getHeader("Referer");
+        String refererUri = null;
+
         try {
+            if (refererUrl != null) {
+                URI uri = new URI(refererUrl);
+                refererUri = uri.getPath();
+            }
+
             theBook = bookService.findByIsbn(isbn);
             model.addAttribute("books", theBook);
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
         }
 
+        String view = Objects.equals(refererUri, "/") ? "home" : "books/list-books";
+
         model.addAllAttributes(Map.of(
                 "title", "Search Result",
                 "isbn", isbn,
-                "view", "home"
+                "view", view
         ));
 
         return "index";

@@ -12,10 +12,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" th:classappend="${currentUrl == '/' ? 'active' : ''}" th:href="@{/}">Home</a>
+                        <a class="nav-link" th:classappend="${currentUri == '/' ? 'active' : ''}" th:href="@{/}">Home</a>
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link" th:classappend="${currentUrl == '/books/list' ? 'active' : ''}" th:href="@{/books/list}">Admin</a>
+                        <a class="nav-link" th:classappend="${currentUri == '/books/list' ? 'active' : ''}" th:href="@{/books/list}">Admin</a>
                     </li>
                 </ul>
                 <div>
