@@ -1,4 +1,4 @@
-package com.jac.onlinebookstore;
+package com.jac.onlinebookstore.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

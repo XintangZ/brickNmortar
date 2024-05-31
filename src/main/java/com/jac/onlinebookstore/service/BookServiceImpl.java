@@ -1,7 +1,7 @@
-package com.jac.onlinebookstore.book.service;
+package com.jac.onlinebookstore.service;
 
-import com.jac.onlinebookstore.book.dao.BookRepository;
-import com.jac.onlinebookstore.book.entity.Book;
+import com.jac.onlinebookstore.dao.BookRepository;
+import com.jac.onlinebookstore.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

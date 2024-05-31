@@ -1,6 +1,6 @@
-package com.jac.onlinebookstore.book.dao;
+package com.jac.onlinebookstore.dao;
 
-import com.jac.onlinebookstore.book.entity.Book;
+import com.jac.onlinebookstore.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

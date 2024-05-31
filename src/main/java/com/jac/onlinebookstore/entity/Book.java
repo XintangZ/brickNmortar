@@ -1,4 +1,4 @@
-package com.jac.onlinebookstore.book.entity;
+package com.jac.onlinebookstore.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

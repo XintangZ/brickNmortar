@@ -1,6 +1,6 @@
-package com.jac.onlinebookstore.book.service;
+package com.jac.onlinebookstore.service;
 
-import com.jac.onlinebookstore.book.entity.Book;
+import com.jac.onlinebookstore.entity.Book;
 
 import java.util.List;
 

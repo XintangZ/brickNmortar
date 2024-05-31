@@ -20,10 +20,10 @@
                         <p class="card-text flex-grow-1" th:text="${book.description}" />
                         <p class="card-text text-secondary"><small th:text="'ISBN: ' + ${book.isbn}" /></p>
 
-                        <button class="btn btn-outline-primary btn-sm"
-                                onclick="alert('Thank you. We will process your request shortly.')">
+                        <a th:href="@{/books/request(bookId=${book.id})}"
+                           class="btn btn-outline-primary btn-sm">
                             Request
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

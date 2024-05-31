@@ -1,7 +1,7 @@
-package com.jac.onlinebookstore.book.controller;
+package com.jac.onlinebookstore.controller;
 
-import com.jac.onlinebookstore.book.service.BookService;
-import com.jac.onlinebookstore.book.entity.Book;
+import com.jac.onlinebookstore.service.BookService;
+import com.jac.onlinebookstore.entity.Book;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +62,7 @@ public class BookController {
         }
 
         Book newBook = new Book();
+        newBook.setIsbn(isbn);
 
         model.addAllAttributes(Map.of(
                 "title", "Add Book",
@@ -86,6 +87,15 @@ public class BookController {
                 "action", "Edit"
         ));
 
+        return "index";
+    }
+
+    @GetMapping("/request")
+    public String handleRequest(@RequestParam("bookId") int id, Model model) {
+        model.addAllAttributes(Map.of(
+                "title", "Confirmation",
+                "view", "books/request-confirmation"
+        ));
         return "index";
     }
 
