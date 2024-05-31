@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('#isbnSearchForm');
     const inputField = document.querySelector('#inputIsbn');
     const oldValue = inputField.value;
