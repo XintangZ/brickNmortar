@@ -22,7 +22,7 @@
 
             <tbody>
             <tr th:if="${error}" >
-                <td colspan="6" class="alert alert-light text-center text-secondary" role="alert" th:text="${error}"></td>
+                <td colspan="7" class="text-center text-secondary" th:text="${error}"></td>
             </tr>
             <tr th:each="book : ${books}">
                 <td th:text="${book.id}" />

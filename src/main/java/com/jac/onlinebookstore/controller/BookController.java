@@ -41,6 +41,10 @@ public class BookController {
 
     @GetMapping("/search")
     public String searchByIsbn(@RequestParam String isbn, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+
         try {
             Book theBook = bookService.findByIsbn(isbn);
             model.addAttribute("books", theBook);
@@ -51,7 +55,7 @@ public class BookController {
         model.addAllAttributes(Map.of(
                 "title", "Search Result",
                 "isbn", isbn,
-                "view", "home"
+                "view", isAdmin ? "books/list-books-admin" : "books/list-books-user"
         ));
 
         return "index";

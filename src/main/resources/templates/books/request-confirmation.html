@@ -5,6 +5,7 @@
 <div th:fragment="content">
     <div class="alert alert-success" role="alert">
         Thank you - We will process your request shortly.
+        <a th:href="@{/requests/list}" class="ms-2">My requests</a>
     </div>
     <a th:href="@{/}" class="btn btn-sm btn-outline-primary">Back to Home Page</a>
 </div>

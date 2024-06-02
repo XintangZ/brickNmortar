@@ -23,8 +23,8 @@
             </thead>
 
             <tbody>
-            <tr th:if="${error}" >
-                <td colspan="6" class="alert alert-light text-center text-secondary" role="alert" th:text="${error}"></td>
+            <tr th:if="${#lists.size(requests) == 0}" >
+                <td colspan="7" class="text-center text-secondary">No Request</td>
             </tr>
             <tr th:each="request : ${requests}">
                 <td th:text="${request.id}" />
@@ -43,7 +43,11 @@
                             <a th:href="@{/requests/change(requestId=${request.id}, status='confirmed')}" class="btn btn-sm btn-outline-primary w-100">Confirm</a>
                         </div>
                         <div class="col-6">
-                            <a th:href="@{/requests/change(requestId=${request.id}, status='confirmed')}" class="btn btn-sm btn-outline-danger w-100">Cancel</a>
+                            <a th:href="@{/requests/change(requestId=${request.id}, status='cancelled')}"
+                               class="btn btn-sm btn-outline-danger w-100"
+                               onclick="if (!(confirm('Are you sure you want to cancel this request?'))) return false">
+                                Cancel
+                            </a>
                         </div>
                     </div>
                 </td>
