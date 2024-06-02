@@ -4,7 +4,7 @@
     <nav th:fragment="nav" class="navbar navbar-expand-lg bg-light shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand" th:href="@{/}">
-                <img th:src="@{/img/logo.png}" alt="bookstore logo" style="width: 100px" class="me-5">
+                <img th:src="@{/img/logo.png}" alt="bookstore logo" style="width: 100px">
             </a>
             <form class="d-flex d-md-none flex-column align-items-end flex-grow-1 pe-4" th:action="@{/logout}" method="post">
                 <small class="text-nowrap">Hello, <span sec:authentication="principal.username"></span></small>
@@ -14,6 +14,14 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 me-md-5">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}" th:classappend="${currentUri == '/books/list' ? 'active' : ''}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/requests/list}" th:classappend="${currentUri == '/requests/list' ? 'active' : ''}">Requests</a>
+                    </li>
+                </ul>
                 <div class="navbar-nav mx-auto mb-2 mb-lg-0 w-100 me-md-5 mt-3 mt-md-0">
                     <div th:replace="~{fragments/search-form :: search}">&nbsp;</div>
                 </div>

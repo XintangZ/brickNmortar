@@ -2,6 +2,9 @@ package com.jac.onlinebookstore.controller;
 
 import com.jac.onlinebookstore.service.BookService;
 import com.jac.onlinebookstore.entity.Book;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +23,17 @@ public class BookController {
     }
 
     @GetMapping("/list")
-    public String listBooks(Model model) {
+    public String listBooks(HttpServletRequest request, Model model) {
         List<Book> allBooks = bookService.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
 
         model.addAllAttributes(Map.of(
                 "books", allBooks,
                 "title", "Home",
-                "view", "home"
+                "view", isAdmin ? "books/list-books-admin" : "books/list-books-user",
+                "currentUri", request.getRequestURI()
         ));
 
         return "index";
@@ -87,15 +94,6 @@ public class BookController {
                 "action", "Edit"
         ));
 
-        return "index";
-    }
-
-    @GetMapping("/request")
-    public String handleRequest(@RequestParam("bookId") int id, Model model) {
-        model.addAllAttributes(Map.of(
-                "title", "Confirmation",
-                "view", "books/request-confirmation"
-        ));
         return "index";
     }
 

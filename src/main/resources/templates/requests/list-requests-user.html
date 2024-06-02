@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="content">
+
+    <h3 class="mb-4">Requests</h3>
+
+    <div class="alert alert-light" role="alert" th:if="${error}" th:text="${error}"></div>
+
+    <div th:each="request : ${requests}">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-4 col-md-3 d-flex justify-content-center align-items-center">
+                    <img th:src="'https://covers.openlibrary.org/b/isbn/' + ${request.book.isbn} + '-L.jpg'" th:alt="'cover of' + ${request.book.title}"
+                         class="card-img-top object-fit-scale mt-2 mt-md-0" style="height: 100px">
+                </div>
+                <div class="col-8 col-md-9">
+                    <div class="row g-3 card-body">
+                        <div class="col-12 col-md-8">
+                            <h5 class="card-title text-primary" th:text="${request.book.title}" />
+                            <p class="card-text text-secondary" th:text="${request.book.author}" />
+                            <p class="card-text text-secondary"><small th:text="'ISBN: ' + ${request.book.isbn}" /></p>
+                        </div>
+                        <div class="col-12 col-md-4 d-md-flex flex-column justify-content-center">
+                            <p>
+                                Status:
+                                <span th:if="${request.status} == 'pending'" class="text-warning" th:text="${#strings.capitalize(request.status)}"></span>
+                                <span th:if="${request.status} == 'confirmed'" class="text-success" th:text="${#strings.capitalize(request.status)}"></span>
+                                <span th:if="${request.status} == 'cancelled'" class="text-secondary" th:text="${#strings.capitalize(request.status)}"></span>
+                            </p>
+                            <a th:if="${request.status} == 'pending'" th:href="@{/requests/change(requestId=${request.id}, status='cancelled')}">Cancel request</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
