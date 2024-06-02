@@ -23,7 +23,7 @@ public class SecurityConfig {
                 configurer
                         .requestMatchers("/img/**").permitAll()
                         .requestMatchers("/books/list", "/books/search", "/books/request").authenticated()
-                        .requestMatchers("/books/**").hasRole("ADMIN")
+                        .requestMatchers("/books/**", "requests/confirm").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/authenticateUser").permitAll())
                 .logout(LogoutConfigurer::permitAll)

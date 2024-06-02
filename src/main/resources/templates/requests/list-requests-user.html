@@ -30,7 +30,7 @@
                                 <span th:if="${request.status} == 'cancelled'" class="text-secondary" th:text="${#strings.capitalize(request.status)}"></span>
                             </p>
                             <a th:if="${request.status} == 'pending'"
-                               th:href="@{/requests/change(requestId=${request.id}, status='cancelled')}"
+                               th:href="@{/requests/cancel(requestId=${request.id})}"
                                onclick="if (!(confirm('Are you sure you want to cancel this request?'))) return false">
                                 Cancel request
                             </a>

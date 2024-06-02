@@ -55,20 +55,6 @@ public class RequestController {
         return "index";
     }
 
-    private void sortRequests(List<Request> requests) {
-        Collections.sort(requests, (r1, r2) -> {
-            // Custom comparator to sort by status, pending requests first
-            if (r1.getStatus().equals("pending") && !r2.getStatus().equals("pending")) {
-                return -1; // r1 is pending, so it should come before r2
-            } else if (!r1.getStatus().equals("pending") && r2.getStatus().equals("pending")) {
-                return 1; // r2 is pending, so it should come before r1
-            } else {
-                // If both are pending or both are not pending, preserve the original order
-                return Integer.compare(requests.indexOf(r1), requests.indexOf(r2));
-            }
-        });
-    }
-
     @GetMapping("/confirmation")
     public String showConfirmation(Model model) {
         model.addAllAttributes(Map.of(
@@ -96,13 +82,31 @@ public class RequestController {
         return "redirect:/requests/confirmation";
     }
 
-    @GetMapping("/change")
-    public String cancelRequest(@RequestParam("requestId") int id, @RequestParam("status") String status) {
-        Request request = requestService.findById(id);
-
-        request.setStatus(status);
-        requestService.save(request);
+    @GetMapping("/cancel")
+    public String cancelRequest(@RequestParam("requestId") int id) {
+        requestService.changeStatusById(id, "cancelled");
 
         return "redirect:/requests/list";
+    }
+
+    @GetMapping("/confirm")
+    public String confirmRequest(@RequestParam("requestId") int id) {
+        requestService.changeStatusById(id, "confirmed");
+
+        return "redirect:/requests/list";
+    }
+
+    private void sortRequests(List<Request> requests) {
+        Collections.sort(requests, (r1, r2) -> {
+            // Custom comparator to sort by status, pending requests first
+            if (r1.getStatus().equals("pending") && !r2.getStatus().equals("pending")) {
+                return -1; // r1 is pending, so it should come before r2
+            } else if (!r1.getStatus().equals("pending") && r2.getStatus().equals("pending")) {
+                return 1; // r2 is pending, so it should come before r1
+            } else {
+                // If both are pending or both are not pending, reverse the original order (newest first)
+                return Integer.compare(requests.indexOf(r2), requests.indexOf(r1));
+            }
+        });
     }
 }

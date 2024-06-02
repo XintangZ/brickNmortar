@@ -40,10 +40,10 @@
                 <td class="text-center">
                     <div th:if="${request.status} == 'pending'" class="row g-2">
                         <div class="col-6">
-                            <a th:href="@{/requests/change(requestId=${request.id}, status='confirmed')}" class="btn btn-sm btn-outline-primary w-100">Confirm</a>
+                            <a th:href="@{/requests/confirm(requestId=${request.id})}" class="btn btn-sm btn-outline-primary w-100">Confirm</a>
                         </div>
                         <div class="col-6">
-                            <a th:href="@{/requests/change(requestId=${request.id}, status='cancelled')}"
+                            <a th:href="@{/requests/cancel(requestId=${request.id})}"
                                class="btn btn-sm btn-outline-danger w-100"
                                onclick="if (!(confirm('Are you sure you want to cancel this request?'))) return false">
                                 Cancel
