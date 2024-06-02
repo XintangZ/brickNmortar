@@ -97,7 +97,7 @@ public class RequestController {
     }
 
     private void sortRequests(List<Request> requests) {
-        Collections.sort(requests, (r1, r2) -> {
+        requests.sort((r1, r2) -> {
             // Custom comparator to sort by status, pending requests first
             if (r1.getStatus().equals("pending") && !r2.getStatus().equals("pending")) {
                 return -1; // r1 is pending, so it should come before r2
